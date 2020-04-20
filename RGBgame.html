@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RGB Guessing Game</title>
+    <link rel="stylesheet" href="RGBgame.css">
+  </head>
+  <body>
+    <h1>The Great
+      <br>
+      <span id = "ccode"></span>
+      <br>
+      Color Guessing Game</h>
+      <div id="nwcolors">
+       <button id ="reset">New Colors</button>
+       <span id ="msgdis"></span>
+       <button id ="easybut">Easy</button>
+       <button id ="hardbut" class = "selected">Hard</button>
+      </div>
+
+
+
+    <div id ="container">
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+    </div>
+    <script>
+    var numsquares = 6;
+    var easybutton = document.querySelector("#easybut");
+    var hardbutton = document.querySelector("#hardbut");
+    var gmreset = document.querySelector("#reset");
+    var messagedisplay = document.querySelector("#msgdis");
+
+    hardbutton.addEventListener("click",function(){
+      easybutton.classList.remove("selected");
+      hardbutton.classList.add("selected");
+      numsquares = 6;
+      colors = generatenewcolor(numsquares);
+      pickedcolor = changecodeno();
+      colcode.textContent = pickedcolor;
+        for(i=0;i<squares.length;i++){
+            squares[i].style.background = colors[i];
+            squares[i].style.display = "block";
+          }
+        });
+
+easybutton.addEventListener("click",function(){
+hardbutton.classList.remove("selected");
+easybutton.classList.add("selected");
+numsquares = 3;
+colors = generatenewcolor(numsquares);
+pickedcolor = changecodeno();
+colcode.textContent = pickedcolor;
+  for(var i=0; i< squares.length; i++){
+    if(colors[i]){
+      squares[i].style.background = colors[i];
+    }
+    else{
+      squares[i].style.display = "none";
+    }
+  }
+});
+
+    var h1 = document.querySelector("h1")
+    var colors = generatenewcolor(numsquares);
+    var colcode = document.querySelector("#ccode");
+    var pickedcolor = changecodeno();
+
+    colcode.textContent = pickedcolor;
+    var squares = document.querySelectorAll(".square");
+    for(var i=0; i< squares.length; i++){
+      squares[i].style.background = colors[i];
+
+        squares[i].addEventListener("click",function(){
+           var clickedcolor = this.style.background;
+           if(clickedcolor === pickedcolor){
+             messagedisplay.textContent = "Correct!";
+             reset.textContent = "Play Again?";
+             changecolor(clickedcolor);
+             h1.style.background = clickedcolor;
+           }
+           else{
+             this.style.background = "#232323";
+             messagedisplay.textContent = "Try Again";
+           }
+        });
+       }
+       function changecolor(color){
+         for(var i = 0; i< squares.length; i++){
+           squares[i].style.background = color;
+         }
+       }
+
+       function changecodeno(){
+         var random = Math.floor(Math.random() * colors.length);
+         return colors[random];
+       }
+
+       function generatenewcolor(num){
+         var arr = []
+         for(var i=0; i < num; i++){
+          arr.push(randomcolor());
+        }
+          return arr;
+
+
+       function randomcolor(){
+          var r = Math.floor(Math.random() * 256);
+          var g = Math.floor(Math.random() * 256);
+          var b = Math.floor(Math.random() * 256);
+          return "rgb(" + r + ", "+ g + ", " + b + ")" ;
+        }
+      }
+
+      gmreset.addEventListener("click",function(){
+      colors = generatenewcolor(numsquares);
+      pickedcolor = changecodeno();
+      colcode.textContent = pickedcolor;
+      messagedisplay.textContent = "";
+      reset.textContent = "New Colors"
+      for(var i=0; i< squares.length; i++){
+      squares[i].style.background = colors[i];
+      h1.style.background = "steelblue";
+        };
+        });
+
+ </script>
+ </body>
+</html>
